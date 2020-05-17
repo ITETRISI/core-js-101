@@ -132,8 +132,13 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  if (rect1.top > (rect2.top + rect2.height) && rect1.left > (rect2.left + rect2.width)) {
+    return true;
+  } if ((rect1.left + rect1.width) > rect2.left && (rect1.top + rect1.height) > rect2.top) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -293,8 +298,21 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let sum = 0;
+  [...`${ccn}`].reverse().forEach((element, i) => {
+    let result = 0;
+    if ((i + 1) % 2 === 0) {
+      result = element * 2;
+      if (result > 9) {
+        result = [...`${result}`].reduce((summ, current) => Number(summ) + Number(current));
+      }
+    } else {
+      result = element;
+    }
+    sum += Number(result);
+  });
+  return (sum * 9) % 10 === 0;
 }
 
 /**
